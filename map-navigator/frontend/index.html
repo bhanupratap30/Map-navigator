@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LPU Campus Navigator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <h1>🎓 LPU Campus Navigator</h1>
+    <p>Dijkstra's Shortest Path · C++ Backend</p>
+  </div>
+  <div class="status">
+    <div class="dot" id="dot"></div>
+    <span id="status-text">Checking...</span>
+  </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div>
+      <label>FROM</label>
+      <select id="src" onchange="highlightSelected()">
+        <option value="">— Select Start —</option>
+      </select>
+    </div>
+
+    <div>
+      <label>TO</label>
+      <select id="dst" onchange="highlightSelected()">
+        <option value="">— Select Destination —</option>
+      </select>
+    </div>
+
+    <button class="btn-find" onclick="findPath()">⚡ FIND SHORTEST PATH</button>
+    <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
+
+    <!-- Error message -->
+    <div class="error" id="error"></div>
+
+    <!-- Result panel -->
+    <div class="result" id="result">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-val" id="dist">—</div>
+          <div class="stat-lbl">Distance (m)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" id="time">—</div>
+          <div class="stat-lbl">Walk Time (min)</div>
+        </div>
+      </div>
+      <label style="margin-bottom:6px">PATH</label>
+      <div class="steps" id="steps"></div>
+    </div>
+
+    <!-- Algorithm info -->
+    <div class="info">
+      <b>⚙ Algorithm Info</b>
+      <div class="info-row"><span>Algorithm</span>  <span class="info-val">Dijkstra's</span></div>
+      <div class="info-row"><span>Backend</span>    <span class="info-val">C++ (Winsock2)</span></div>
+      <div class="info-row"><span>Structure</span>  <span class="info-val">Min-Heap PQ</span></div>
+      <div class="info-row"><span>Time</span>       <span class="info-val">O((V+E)logV)</span></div>
+      <div class="info-row"><span>Nodes</span>      <span class="info-val">53</span></div>
+      <div class="info-row"><span>Edges</span>      <span class="info-val">106</span></div>
+    </div>
+
+    <p style="font-size:10px;color:#a07030;text-align:center">
+      💡 Click any node on the map to select it
+    </p>
+
+  </div><!-- end sidebar -->
+
+  <!-- MAP -->
+  <div class="map-wrap">
+
+    <div class="zoom-btns">
+      <button onclick="zoom(1.2)">+</button>
+      <button onclick="zoom(0.8)">−</button>
+      <button onclick="resetView()" style="font-size:12px">⌖</button>
+    </div>
+
+    <svg id="map" viewBox="0 0 980 820">
+      <!-- Roads and nodes are drawn here by script.js -->
+      <g id="edges"></g>
+      <g id="nodes"></g>
+    </svg>
+
+    <!-- Hover tooltip -->
+    <div class="tip" id="tip"></div>
+
+    <!-- Map legend -->
+    <div class="legend">
+      <div class="legend-row"><div class="legend-dot" style="background:#16a34a"></div> Start</div>
+      <div class="legend-row"><div class="legend-dot" style="background:#dc2626"></div> End</div>
+      <div class="legend-row"><div class="legend-dot" style="background:#7c3aed"></div> On Path</div>
+      <div class="legend-row"><div class="legend-line" style="background:#16a34a"></div> Route</div>
+    </div>
+
+  </div><!-- end map -->
+
+</div><!-- end layout -->
+
+<script src="script.js"></script>
+</body>
+</html>

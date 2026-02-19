@@ -1,0 +1,248 @@
+/* LPU Campus Navigator - style.css */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fffdf0;
+  color: #1c1a0e;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #fff8c0, #ffe878);
+  border-bottom: 2px solid #d97706;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 { font-size: 18px; color: #92400e; }
+header p  { font-size: 11px; color: #a07030; }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #a07030;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+}
+.dot.on  { background: #16a34a; }
+.dot.off { background: #dc2626; }
+
+/* ── MAIN LAYOUT ── */
+.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 280px;
+  background: #fff;
+  border-right: 1px solid #e5d58a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+label { font-size: 11px; color: #a07030; font-weight: bold; display: block; margin-bottom: 4px; }
+
+select {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #d97706;
+  border-radius: 6px;
+  background: #fffdf0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+select:focus { outline: none; box-shadow: 0 0 0 2px rgba(217,119,6,0.3); }
+
+.btn-find {
+  padding: 11px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.btn-find:hover { background: linear-gradient(135deg, #d97706, #b45309); }
+
+.btn-clear {
+  padding: 8px;
+  background: #fff8e0;
+  border: 1px solid #d97706;
+  border-radius: 6px;
+  color: #a07030;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ── RESULT ── */
+.result {
+  background: #fffbea;
+  border: 1px solid #d97706;
+  border-radius: 8px;
+  padding: 12px;
+  display: none;
+}
+
+.result.show { display: block; }
+
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+
+.stat {
+  background: #fff;
+  border: 1px solid #e5d58a;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+}
+
+.stat-val  { font-size: 20px; font-weight: bold; color: #d97706; }
+.stat-lbl  { font-size: 10px; color: #a07030; }
+
+.steps { max-height: 180px; overflow-y: auto; }
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.step:nth-child(odd) { background: #fff9d0; }
+.step-n { color: #a07030; min-width: 20px; }
+.step-arrow { color: #16a34a; }
+
+/* ── ERROR ── */
+.error {
+  background: #fee2e2;
+  border: 1px solid #f87171;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 12px;
+  color: #dc2626;
+  display: none;
+}
+.error.show { display: block; }
+
+/* ── INFO BOX ── */
+.info {
+  background: #f0ebff;
+  border: 1px solid #a78bfa;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.info b { color: #7c3aed; display: block; margin-bottom: 4px; }
+.info-row { display: flex; justify-content: space-between; padding: 1px 0; color: #6d5a90; }
+.info-val { color: #7c3aed; font-weight: bold; }
+
+/* ── MAP ── */
+.map-wrap {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(160deg, #fffde0, #fff9c0, #fff5a8);
+  overflow: hidden;
+}
+
+.zoom-btns {
+  position: absolute;
+  top: 12px; right: 12px;
+  display: flex; gap: 4px;
+  z-index: 10;
+}
+
+.zoom-btns button {
+  width: 32px; height: 32px;
+  background: #fff;
+  border: 1px solid #d97706;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #d97706;
+  cursor: pointer;
+}
+
+.zoom-btns button:hover { background: #fff9d0; }
+
+#map { width: 100%; height: 100%; cursor: grab; }
+#map:active { cursor: grabbing; }
+
+/* ── SVG STYLES ── */
+.edge      { stroke: rgba(160,120,0,0.25); stroke-width: 2; fill: none; }
+.edge-path { stroke: #16a34a; stroke-width: 4; fill: none;
+             stroke-dasharray: 8 4; animation: flow 1s linear infinite;
+             filter: drop-shadow(0 0 4px rgba(22,163,74,0.5)); }
+
+@keyframes flow { to { stroke-dashoffset: -12; } }
+
+.node { fill: #fff9d8; stroke: rgba(180,140,0,0.5); stroke-width: 1.5; cursor: pointer; }
+.node:hover  { fill: #ffe878; stroke: #d97706; stroke-width: 2.5; }
+.node.start  { fill: #dcfce7 !important; stroke: #16a34a !important; stroke-width: 3 !important; }
+.node.end    { fill: #fee2e2 !important; stroke: #dc2626 !important; stroke-width: 3 !important; }
+.node.active { fill: #ede9fe !important; stroke: #7c3aed !important; stroke-width: 3 !important; }
+
+/* Zone colours */
+.z-a { fill: #e8f4ff; stroke: rgba(2,132,199,0.4); }   /* academic  */
+.z-g { fill: #fdf4ff; stroke: rgba(168,85,247,0.4); }  /* girls     */
+.z-b { fill: #eff6ff; stroke: rgba(37,99,235,0.35); }  /* boys      */
+.z-d { fill: #f0fdf4; stroke: rgba(22,163,74,0.4); }   /* admin     */
+.z-f { fill: #fefce8; stroke: rgba(202,138,4,0.4); }   /* facility  */
+.z-m { fill: #fff1f2; stroke: rgba(225,29,72,0.4); }   /* medical   */
+
+.node-lbl { fill: #1c1a0e; font-size: 8px; font-weight: bold; text-anchor: middle; pointer-events: none; }
+.node-num { fill: rgba(160,112,0,0.6); font-size: 7px; text-anchor: middle; pointer-events: none; }
+
+/* ── TOOLTIP ── */
+.tip {
+  position: absolute;
+  background: #fffde1;
+  border: 1px solid #d97706;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  pointer-events: none;
+  display: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(180,140,0,0.2);
+}
+.tip.show { display: block; }
+
+/* ── LEGEND ── */
+.legend {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  background: rgba(255,253,225,0.95);
+  border: 1px solid #d97706;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 10px;
+  color: #7a5c10;
+}
+
+.legend-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+.legend-line { width: 16px; height: 3px; border-radius: 2px; }
